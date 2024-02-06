@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<persistence-unit name="magirtd" transaction-type="JTA">
+		<jta-data-source>java:jboss/datasources/magirdb</jta-data-source>
+		<class>ci.pigier.entity.Contact</class>
+		<class>ci.pigier.entity.Personne</class>
+		<properties>
+			<property name="javax.persistence.schema-generation.database.action" value="update" />
+			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/magir"/>
+			<property name="hibernate.default_schema" value="magir"/>
+			<property name="hibernate.connection.username" value="magir"/>
+			<property name="hibernate.connection.password" value="magir"/>-->
+		</properties>
+	</persistence-unit>
+</persistence>

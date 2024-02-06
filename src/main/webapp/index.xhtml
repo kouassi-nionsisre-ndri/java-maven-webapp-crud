@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>Menu Principal</title>
+    <link rel="stylesheet" href="styles/bootstrap.min.css" />
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        .btn-group {
+            margin-bottom: 20px;
+        }
+    </style>
+</h:head>
+<body>
+<div class="container">
+    <h1 class="text-center">TD Développement Web Avancé II</h1><hr/><br/>
+    <!-- <div class="row pt-5 pb-5">
+        <div class="col-md-6 text-center">
+            <h:link outcome="ajouter-personne" class="btn btn-success">Ajouter une personne</h:link>
+        </div>
+        <div class="col-md-6 text-center">
+        	<h:link outcome="ajouter-contact" class="btn btn-success">Ajouter un contact</h:link>
+        </div>
+    </div> -->
+    
+    <div>
+   		<h2 class="text-center">Ajouter ou Modifier une nouvelle personne dans le repertoire</h2><br/>
+        <f:view>
+		    <h:form>
+			    <div class="row pt-5 pb-5 col-md-12 bg-dark">
+			        <div class="col-md-6">
+			            <div class="form-group">
+				            <label for="nom" class="text-white">Nom :</label>
+				            <h:inputText id="nom" value="#{personneBean.nom}" class="form-control" />
+				        </div>
+				        <div class="form-group">
+				            <label for="prenom" class="text-white">Prénom(s) :</label>
+				            <h:inputText id="prenom" value="#{personneBean.prenom}" class="form-control" />
+				        </div>
+				        <div class="form-group">
+				            <label for="sexe" class="text-white">Sexe :</label>
+				            <h:selectOneMenu id="sexe" value="#{personneBean.sexe}" class="form-control">
+								<f:selectItem itemValue="M" itemLabel="Masculin"/>
+								<f:selectItem itemValue="F" itemLabel="Feminin"/>
+							</h:selectOneMenu>
+				        </div>
+			        </div>
+			        <div class="col-md-6">
+			        	<div class="form-group">
+				            <label for="pays" class="text-white">Pays :</label>
+				            <h:inputText id="pays" value="#{personneBean.pays}" class="form-control" />
+				        </div>
+				        <div class="form-group">
+				            <label for="telephone" class="text-white">Téléphone :</label>
+				            <h:inputText id="telephone" value="#{personneBean.telephone}" class="form-control" />
+				        </div>
+				        <div class="form-group">
+				            <label for="ville" class="text-white">Ville :</label>
+				            <h:inputText id="ville" value="#{personneBean.ville}" class="form-control" />
+				        </div><br/>
+			        </div>
+			        <h:commandButton action="#{personneBean.ajouterNouveau}" value="Ajouter la personne" class="btn btn-success form-control" style="#{personneBean.isEdit ? 'display:none' : ''}" />
+			        <h:commandButton action="#{personneBean.modifierPersonne}" value="Enregistrer la modification" class="btn btn-primary form-control mb-2"  style="#{not personneBean.isEdit ? 'display:none' : ''}" />
+			        <h:commandButton action="#{personneBean.annulerModificationPersonne}" value="Annuler la modification" class="btn btn-danger form-control"  style="#{not personneBean.isEdit ? 'display:none' : ''}" />
+			    </div>
+		    </h:form>
+		</f:view>
+	</div><br/><br/>
+    
+    <h2 class="text-center">Contenu du répertoire</h2><br/>
+   
+    <h:dataTable var="personneAvecContact" value="#{personneBean.listeDesPersonnesAvecLeurContact()}" styleClass="table table-striped"> 
+    	<h:column>
+			<f:facet name="header"><h:outputText value="Nom"/></f:facet>
+			<h:outputText value="#{personneAvecContact.key.nom}"/> 
+		</h:column>
+		<h:column>
+			<f:facet name="header"><h:outputText value="Prénom"/></f:facet>
+			<h:outputText value="#{personneAvecContact.key.prenom}"/> 
+		</h:column>
+		<h:column>
+			<f:facet name="header"><h:outputText value="Sexe"/></f:facet>
+			<h:outputText value="#{personneAvecContact.key.sexe}"/> 
+		</h:column>
+		<h:column>
+			<f:facet name="header"><h:outputText value="Pays"/></f:facet>
+			<h:outputText value="#{personneAvecContact.value.pays}"/> 
+		</h:column>
+		<h:column>
+			<f:facet name="header"><h:outputText value="Ville"/></f:facet>
+			<h:outputText value="#{personneAvecContact.value.ville}"/> 
+		</h:column>
+		<h:column>
+			<f:facet name="header"><h:outputText value="Téléphone"/></f:facet>
+			<h:outputText value="#{personneAvecContact.value.telephone}"/> 
+		</h:column>
+	    <h:column>
+	        <f:facet name="header"><h:outputText value="Actions"/></f:facet>
+	        <div class="row">
+		        <div class="col-md-4 text-center">
+		            <h:form>
+			    		<h:inputHidden id="pays" value="#{personneAvecContact.key.id}" class="form-control" />
+			    		<h:commandButton action="#{personneBean.preparerModificationPersonne(personneAvecContact.key.id)}" value="Modifier" class="btn btn-primary mr-2" />
+			        </h:form>
+		        </div>
+		        <div class="col-md-4 text-center">
+		        	<h:form>
+			    		<h:inputHidden id="pays" value="#{personneAvecContact.key.id}" class="form-control" />
+			        	<h:commandButton action="#{personneBean.supprimerPersonne(personneAvecContact.key.id)}" value="Supprimer" class="btn btn-danger" />
+			        </h:form>
+		        </div>
+		    </div>
+	    </h:column>
+	</h:dataTable><br/><br/><br/><br/>
+</div>
+</body>
+</html>
