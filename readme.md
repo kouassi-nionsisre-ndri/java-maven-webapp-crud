@@ -27,12 +27,16 @@ To get a local copy up and running follow these simple steps.
 1. Clone the repository
    ```sh
    git clone https://github.com/kouassi-nionsisre-ndri/java-maven-webapp-crud.git
-  
-2. Navigate to the project directory
+
+2. Build the project with Maven
+   ```sh
+   mvn clean package
+
+3. Navigate to the project directory
    ```sh
    cd java-maven-webapp-crud
 
-3. Deploy the generated WAR file to a servlet container (e.g., WildFly, Apache Tomcat)
+4. Deploy the generated WAR file to a servlet container (e.g., WildFly, Apache Tomcat)
 
 ## Usage
 
